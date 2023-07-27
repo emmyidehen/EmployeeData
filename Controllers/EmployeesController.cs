@@ -93,7 +93,24 @@ namespace EmployeeCRUD2.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
+        [HttpPost]
+
+        public async Task<IActionResult> Delete(UpdateEmployeeViewModel model)
+        {
+            var employee = employeeDb.Employees.FindAsync(model.Id);
+
+            if (employee != null)
+            {
+                employeeDb.Employees.Remove(await employee);
+
+                await employeeDb.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 
     
